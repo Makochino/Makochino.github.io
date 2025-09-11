@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Максим Мацюк - Backend Разработчик</title>
+    
+    <link rel="icon" type="image/png" href="icons8-leaf-100.png">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic" class="notranslate">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-color: #0D1813;
+            --sidebar-bg-color: #12231C;
+            --card-bg-color: #172D24;
+            --text-color: #E0E0E0;
+            --heading-color: #FFFFFF;
+            --primary-color: #2ECC71;
+            --primary-hover-color: #27AE60;
+            --border-color: #254135;
+            --shadow-color: rgba(0, 0, 0, 0.2);
+            --link-color: #81C784;
+            --link-hover-color: #A5D6A7;
+        }
+
+        body.light-theme {
+            --bg-color: #F4F9F4;
+            --sidebar-bg-color: #FFFFFF;
+            --card-bg-color: #F0F5F0;
+            --text-color: #333333;
+            --heading-color: #111111;
+            --primary-color: #27AE60;
+            --primary-hover-color: #2ECC71;
+            --border-color: #DDEEE5;
+            --shadow-color: rgba(0, 0, 0, 0.05);
+            --link-color: #1A73E8;
+            --link-hover-color: #4285F4;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 320px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            background-color: var(--sidebar-bg-color);
+            border-right: 1px solid var(--border-color);
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+            box-shadow: 4px 0px 15px var(--shadow-color);
+            z-index: 100;
+        }
+
+        .main-content {
+            margin-left: 320px;
+            width: calc(100% - 320px);
+            padding: 2rem;
+            display: grid;
+            gap: 1.5rem;
+            grid-template-columns: 1fr;
+        }
+
+        .profile-pic {
+            width: 200px;
+            height: 200px;
+            border-radius: 12px;
+            object-fit: cover;
+            border: 4px solid var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .sidebar h1 { color: var(--heading-color); font-size: 2rem; margin-bottom: 0.25rem; }
+        .sidebar p { font-size: 1.1rem; margin-bottom: 1.5rem; }
+        
+        .social-links {
+            margin-bottom: 1.5rem;
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+        .social-links a {
+            color: var(--text-color);
+            font-size: 1.8rem;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+        .social-links a:hover {
+            color: var(--primary-color);
+            transform: scale(1.1);
+        }
+
+        .download-cv {
+            display: block;
+            width: 100%;
+            max-width: 250px;
+            background-color: var(--primary-color);
+            color: #fff;
+            padding: 0.75rem 1.5rem;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            margin-bottom: 2rem;
+        }
+        .download-cv:hover {
+            background-color: var(--primary-hover-color);
+            transform: translateY(-2px);
+        }
+        
+        .controls {
+            margin-top: auto;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background-color: var(--bg-color);
+            padding: 0.5rem 1rem;
+            border-radius: 10px;
+        }
+
+        .lang-switcher { display: flex; gap: 0.5rem; }
+        .lang-switcher button {
+            background: none; border: none; color: var(--text-color);
+            cursor: pointer; font-weight: bold; padding: 0.5rem 0.8rem;
+            border-radius: 5px; transition: background-color 0.3s, color 0.3s;
+        }
+        .lang-switcher button.active {
+            background-color: var(--primary-color);
+            color: #fff;
+        }
+
+        .theme-switcher {
+            background: none; border: 1px solid var(--border-color); color: var(--text-color);
+            cursor: pointer; width: 40px; height: 40px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.2rem; transition: all 0.3s ease;
+        }
+        .theme-switcher:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .content-section {
+            background-color: var(--card-bg-color);
+            padding: 2rem; border-radius: 12px; border: 1px solid var(--border-color);
+            box-shadow: 0 4px 15px var(--shadow-color);
+            opacity: 0; transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .content-section.visible { opacity: 1; transform: translateY(0); }
+        .content-section h2 {
+            color: var(--heading-color); margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem; font-size: 1.8rem;
+            display: flex; align-items: center; gap: 0.75rem;
+        }
+        
+        .skills-list {
+            list-style: none; display: flex; flex-wrap: wrap;
+            gap: 0.75rem; margin-bottom: 1rem;
+        }
+        .skills-list li {
+            background-color: var(--bg-color);
+            padding: 0.5rem 1rem; border-radius: 6px;
+            border: 1px solid var(--border-color); font-weight: 500;
+        }
+        
+        .project-item { margin-bottom: 1.25rem; }
+        .project-item:last-child { margin-bottom: 0; }
+        .project-item h3 { color: var(--heading-color); margin-bottom: 0.25rem; font-size: 1.2rem; }
+        .project-item p { font-size: 0.95rem; }
+
+        .contact-info p { margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.75rem; }
+        .contact-info a { color: var(--link-color); text-decoration: none; transition: color 0.3s ease; }
+        .contact-info a:hover { color: var(--link-hover-color); }
+
+        footer { text-align: center; padding-top: 2rem; color: #888; }
+
+        @media (max-width: 992px) {
+            body { flex-direction: column; }
+            .sidebar { position: relative; width: 100%; height: auto; border-right: none; border-bottom: 1px solid var(--border-color); }
+            .main-content { margin-left: 0; width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <aside class="sidebar">
+        <img src="photo_2025-09-06_15-54-01.jpg" alt="Фото Максима Мацюка" class="profile-pic">
+        <h1 data-lang-key="name">Максим Мацюк</h1>
+        <p data-lang-key="jobTitle">Backend-разработчик</p>
+        
+        <div class="social-links">
+            <a href="https://github.com/Makochino" target="_blank" title="GitHub"><i class="fa-brands fa-github"></i></a>
+            <a href="https://discord.id/?prefill=836877592287117323" target="_blank" title="Discord"><i class="fa-brands fa-discord"></i></a>
+            <a href="https://steamcommunity.com/profiles/76561199098642109/" target="_blank" title="Steam"><i class="fa-brands fa-steam"></i></a>
+            <a href="#" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+        </div>
+        
+        <a href="Max_Matsiuk_CV.pdf" class="download-cv" download>
+            <i class="fa-solid fa-download"></i> <span data-lang-key="downloadCV">Скачать CV</span>
+        </a>
+        
+        <div class="controls">
+            <div class="lang-switcher">
+                <button data-lang="ru" class="active">RU</button>
+                <button data-lang="uk">UK</button>
+                <button data-lang="en">EN</button>
+            </div>
+            <button id="theme-toggle" class="theme-switcher">
+                <i class="fa-solid fa-moon"></i>
+            </button>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <section id="about" class="content-section">
+            <h2 data-lang-key="aboutMe"><i class="fa-solid fa-user"></i> Обо мне</h2>
+            <p data-lang-key="aboutMeText">
+                Мотивированный Backend-разработчик с практическим опытом в создании backend-приложений, RESTful API и скриптов автоматизации. Уверенно владею Python, Django, PostgreSQL и MongoDB, обладаю дополнительными навыками в администрировании Linux и разработке ботов. Увлечен чистой архитектурой, оптимизацией баз данных и постоянным обучением.
+            </p>
+        </section>
+
+        <section id="skills" class="content-section">
+            <h2 data-lang-key="skills"><i class="fa-solid fa-laptop-code"></i> Навыки и Компетенции</h2>
+            <ul class="skills-list">
+                <li>Python (Django, FastAPI)</li>
+                <li>PostgreSQL, MongoDB</li>
+                <li>REST API Development</li>
+                <li>Bot Development (Discord, Telegram)</li>
+                <li>Linux (Ubuntu)</li>
+                <li>Git & GitHub</li>
+                <li data-lang-key="dockerSkill">Docker (базовые знания)</li>
+            </ul>
+        </section>
+        
+        <section id="experience" class="content-section">
+            <h2 data-lang-key="workExperience"><i class="fa-solid fa-briefcase"></i> Опыт Работы</h2>
+            <div class="project-item">
+                 <h3 data-lang-key="freelanceTitle">Фриланс-проекты (2023 – настоящее время)</h3>
+                 <p data-lang-key="freelanceText">
+                    Разрабатывал Telegram и Discord ботов с использованием Python, реализуя функции хранения данных, интеграции с API и автоматизированные рабочие процессы. Создавал небольшие backend-приложения на Django и FastAPI с интеграцией баз данных PostgreSQL и MongoDB.
+                 </p>
+            </div>
+        </section>
+
+        <section id="projects" class="content-section">
+            <h2 data-lang-key="projects"><i class="fa-solid fa-diagram-project"></i> Проекты</h2>
+            <div class="project-item">
+                <h3 data-lang-key="project1Title">Discord Music Bot</h3>
+                <p data-lang-key="project1Desc">Разработан на Python с использованием yt-dlp и discord.py, поддерживает очереди, управление воспроизведением и интеграцию с YouTube.</p>
+            </div>
+            <div class="project-item">
+                <h3 data-lang-key="project2Title">Roblox GPO Trade Bot</h3>
+                <p data-lang-key="project2Desc">Реализована система автодополнения, динамический UI и хранение сделок в базе данных.</p>
+            </div>
+        </section>
+
+        <section id="education" class="content-section">
+             <h2 data-lang-key="education"><i class="fa-solid fa-graduation-cap"></i> Образование</h2>
+             <div class="project-item">
+                <p data-lang-key="education1"><strong>Одесский лицей №4</strong> (ожидаемое окончание: 2026)</p>
+             </div>
+             <div class="project-item">
+                <p data-lang-key="education2"><strong>Курс по программированию на Python</strong>, Одесский политехнический университет (2023)</p>
+             </div>
+        </section>
+
+        <section id="languages" class="content-section">
+            <h2 data-lang-key="languages"><i class="fa-solid fa-language"></i> Языки</h2>
+            <ul class="skills-list">
+                <li data-lang-key="langRU">Русский (Родной)</li>
+                <li data-lang-key="langUK">Украинский (Родной)</li>
+                <li data-lang-key="langEN">Английский (Свободный)</li>
+            </ul>
+        </section>
+
+        <section id="contact" class="content-section contact-info">
+            <h2 data-lang-key="contacts"><i class="fa-solid fa-envelope"></i> Контакты</h2>
+            <p><i class="fa-solid fa-at"></i> Email: <a href="mailto:maksimmatsiuk456@gmail.com">maksimmatsiuk456@gmail.com</a></p>
+            <p><i class="fa-solid fa-phone"></i> <span data-lang-key="phone">Телефон</span>: <a href="tel:+380509369762">(+380)-50-936-9762</a></p>
+        </section>
+
+        <footer>
+            <p data-lang-key="footer">&copy; 2025 Максим Мацюк. Все права защищены.</p>
+        </footer>
+    </main>
+
+    <script>
+        const translations = {
+            ru: {
+                name: "Максим Мацюк",
+                jobTitle: "Backend-разработчик",
+                downloadCV: "Скачать CV",
+                aboutMe: '<i class="fa-solid fa-user"></i> Обо мне',
+                aboutMeText: "Мотивированный Backend-разработчик с практическим опытом в создании backend-приложений, RESTful API и скриптов автоматизации. Уверенно владею Python, Django, PostgreSQL и MongoDB, обладаю дополнительными навыками в администрировании Linux и разработке ботов. Увлечен чистой архитектурой, оптимизацией баз данных и постоянным обучением.",
+                skills: '<i class="fa-solid fa-laptop-code"></i> Навыки и Компетенции',
+                dockerSkill: "Docker (базовые знания)",
+                workExperience: '<i class="fa-solid fa-briefcase"></i> Опыт Работы',
+                freelanceTitle: "Фриланс-проекты (2023 – настоящее время)",
+                freelanceText: "Разрабатывал Telegram и Discord ботов с использованием Python, реализуя функции хранения данных, интеграции с API и автоматизированные рабочие процессы. Создавал небольшие backend-приложения на Django и FastAPI с интеграцией баз данных PostgreSQL и MongoDB.",
+                projects: '<i class="fa-solid fa-diagram-project"></i> Проекты',
+                project1Title: "Discord Music Bot",
+                project2Title: "Roblox GPO Trade Bot",
+                project1Desc: "Разработан на Python с использованием yt-dlp и discord.py, поддерживает очереди, управление воспроизведением и интеграцию с YouTube.",
+                project2Desc: "Реализована система автодополнения, динамический UI и хранение сделок в базе данных.",
+                education: '<i class="fa-solid fa-graduation-cap"></i> Образование',
+                education1: "<strong>Одесский лицей №4</strong> (ожидаемое окончание: 2026)",
+                education2: "<strong>Курс по программированию на Python</strong>, Одесский политехнический университет (2023)",
+                languages: '<i class="fa-solid fa-language"></i> Языки',
+                langRU: "Русский (Родной)",
+                langUK: "Украинский (Родной)",
+                langEN: "Английский (Свободный)",
+                contacts: '<i class="fa-solid fa-envelope"></i> Контакты',
+                phone: "Телефон",
+                footer: "&copy; 2025 Максим Мацюк. Все права защищены."
+            },
+            uk: {
+                name: "Максим Мацюк",
+                jobTitle: "Backend-розробник",
+                downloadCV: "Завантажити CV",
+                aboutMe: '<i class="fa-solid fa-user"></i> Про мене',
+                aboutMeText: "Вмотивований Backend-розробник з практичним досвідом у створенні backend-додатків, RESTful API та скриптів автоматизації. Впевнено володію Python, Django, PostgreSQL та MongoDB, маю додаткові навички в адмініструванні Linux та розробці ботів. Захоплений чистою архітектурою, оптимізацією баз даних та постійним навчанням.",
+                skills: '<i class="fa-solid fa-laptop-code"></i> Навички та Компетенції',
+                dockerSkill: "Docker (базові знання)",
+                workExperience: '<i class="fa-solid fa-briefcase"></i> Досвід Роботи',
+                freelanceTitle: "Фріланс-проекти (2023 – теперішній час)",
+                freelanceText: "Розробляв Telegram та Discord ботів з використанням Python, реалізуючи функції зберігання даних, інтеграції з API та автоматизовані робочі процеси. Створював невеликі backend-додатки на Django та FastAPI з інтеграцією баз даних PostgreSQL та MongoDB.",
+                projects: '<i class="fa-solid fa-diagram-project"></i> Проекти',
+                project1Title: "Discord Music Bot",
+                project2Title: "Roblox GPO Trade Bot",
+                project1Desc: "Розроблено на Python з використанням yt-dlp та discord.py, підтримує черги, керування відтворенням та інтеграцію з YouTube.",
+                project2Desc: "Реалізовано систему автодоповнення, динамічний UI та зберігання угод у базі даних.",
+                education: '<i class="fa-solid fa-graduation-cap"></i> Освіта',
+                education1: "<strong>Одеський ліцей №4</strong> (очікуване закінчення: 2026)",
+                education2: "<strong>Курс з програмування на Python</strong>, Одеський політехнічний університет (2023)",
+                languages: '<i class="fa-solid fa-language"></i> Мови',
+                langRU: "Російська (Рідна)",
+                langUK: "Українська (Рідна)",
+                langEN: "Англійська (Вільна)",
+                contacts: '<i class="fa-solid fa-envelope"></i> Контакти',
+                phone: "Телефон",
+                footer: "&copy; 2025 Максим Мацюк. Всі права захищені."
+            },
+            en: {
+                name: "Maksym Matsiuk",
+                jobTitle: "Backend Developer",
+                downloadCV: "Download CV",
+                aboutMe: '<i class="fa-solid fa-user"></i> About Me',
+                aboutMeText: "Motivated Backend Developer with hands-on experience in building backend applications, RESTful APIs, and automation scripts. Proficient in Python, Django, PostgreSQL, and MongoDB, with additional skills in Linux administration and bot development. Passionate about clean architecture, database optimization, and continuous learning.",
+                skills: '<i class="fa-solid fa-laptop-code"></i> Skills & Competencies',
+                dockerSkill: "Docker (basic)",
+                workExperience: '<i class="fa-solid fa-briefcase"></i> Work Experience',
+                freelanceTitle: "Freelance Projects (2023 – Present)",
+                freelanceText: "Developed Telegram and Discord bots using Python, implementing features such as data storage, API integration, and automated workflows. Created small backend applications with Django and FastAPI, including PostgreSQL and MongoDB database integration.",
+                projects: '<i class="fa-solid fa-diagram-project"></i> Projects',
+                project1Title: "Discord Music Bot",
+                project2Title: "Roblox GPO Trade Bot",
+                project1Desc: "Developed with Python, yt-dlp, and discord.py, supporting queues, playback control, and YouTube integration.",
+                project2Desc: "Implemented an autocomplete system, dynamic UI, and database storage of trades.",
+                education: '<i class="fa-solid fa-graduation-cap"></i> Education',
+                education1: "<strong>Odessa Lyceum №4</strong> (expected graduation: 2026)",
+                education2: "<strong>Python Programming Course</strong>, Odessa Polytechnic University (2023)",
+                languages: '<i class="fa-solid fa-language"></i> Languages',
+                langRU: "Russian (Native)",
+                langUK: "Ukrainian (Native)",
+                langEN: "English (Fluent)",
+                contacts: '<i class="fa-solid fa-envelope"></i> Contact',
+                phone: "Phone",
+                footer: "&copy; 2025 Maksym Matsiuk. All rights reserved."
+            }
+        };
+
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const themeIcon = themeToggleBtn.querySelector('i');
+        const currentTheme = localStorage.getItem('theme');
+        if (currentTheme === 'light') {
+            document.body.classList.add('light-theme');
+            themeIcon.classList.remove('fa-moon');
+            themeIcon.classList.add('fa-sun');
+        }
+        themeToggleBtn.addEventListener('click', () => {
+            document.body.classList.toggle('light-theme');
+            let theme = 'dark';
+            if (document.body.classList.contains('light-theme')) {
+                theme = 'light';
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+            } else {
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+            }
+            localStorage.setItem('theme', theme);
+        });
+
+        const langSwitcher = document.querySelector('.lang-switcher');
+        const langBtns = langSwitcher.querySelectorAll('button');
+        const translatableElements = document.querySelectorAll('[data-lang-key]');
+
+        const setLanguage = (lang) => {
+            translatableElements.forEach(el => {
+                const key = el.getAttribute('data-lang-key');
+                if (translations[lang] && translations[lang][key] !== undefined) {
+                    el.innerHTML = translations[lang][key];
+                }
+            });
+            document.documentElement.lang = lang;
+            localStorage.setItem('language', lang);
+            
+            langBtns.forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.getAttribute('data-lang') === lang) {
+                    btn.classList.add('active');
+                }
+            });
+        };
+
+        langSwitcher.addEventListener('click', (e) => {
+            if (e.target.tagName === 'BUTTON') {
+                const lang = e.target.getAttribute('data-lang');
+                setLanguage(lang);
+            }
+        });
+        
+        const savedLang = localStorage.getItem('language') || 'ru';
+        setLanguage(savedLang);
+
+        const sections = document.querySelectorAll('.content-section');
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1, root: null });
+
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>
