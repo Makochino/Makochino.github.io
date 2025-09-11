@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic" class="notranslate">
+    <link rel="preconnect" href="https://fonts.gstatic.com" class="notranslate">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
 
     <style>
@@ -196,11 +196,53 @@
 
         footer { text-align: center; padding-top: 2rem; color: #888; }
 
+        /* --- АДАПТИВНОСТЬ --- */
+        
+        /* Для планшетов и небольших ноутбуков */
         @media (max-width: 992px) {
             body { flex-direction: column; }
-            .sidebar { position: relative; width: 100%; height: auto; border-right: none; border-bottom: 1px solid var(--border-color); }
-            .main-content { margin-left: 0; width: 100%; }
+            .sidebar {
+                position: relative;
+                width: 100%;
+                height: auto;
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+            }
+            .main-content {
+                margin-left: 0;
+                width: 100%;
+                padding: 1.5rem; /* Уменьшаем отступы по бокам */
+            }
         }
+        
+        /* Для мобильных телефонов */
+        @media (max-width: 768px) {
+            .profile-pic {
+                width: 150px; /* Уменьшаем фото */
+                height: 150px;
+            }
+            .sidebar {
+                padding: 1.5rem; /* Уменьшаем отступы в сайдбаре */
+            }
+            .sidebar h1 {
+                font-size: 1.8rem; /* Уменьшаем заголовок */
+            }
+            
+            .main-content {
+                padding: 1rem; /* Еще уменьшаем отступы */
+            }
+            .content-section {
+                padding: 1.5rem; /* Уменьшаем отступы в карточках */
+            }
+            .content-section h2 {
+                font-size: 1.5rem; /* Уменьшаем подзаголовки */
+            }
+            body {
+                font-size: 0.95rem; /* Слегка уменьшаем основной текст */
+                line-height: 1.5;
+            }
+        }
+
     </style>
 </head>
 <body>
@@ -309,85 +351,49 @@
     <script>
         const translations = {
             ru: {
-                name: "Максим Мацюк",
-                jobTitle: "Backend-разработчик",
-                downloadCV: "Скачать CV",
+                name: "Максим Мацюк", jobTitle: "Backend-разработчик", downloadCV: "Скачать CV",
                 aboutMe: '<i class="fa-solid fa-user"></i> Обо мне',
                 aboutMeText: "Мотивированный Backend-разработчик с практическим опытом в создании backend-приложений, RESTful API и скриптов автоматизации. Уверенно владею Python, Django, PostgreSQL и MongoDB, обладаю дополнительными навыками в администрировании Linux и разработке ботов. Увлечен чистой архитектурой, оптимизацией баз данных и постоянным обучением.",
-                skills: '<i class="fa-solid fa-laptop-code"></i> Навыки и Компетенции',
-                dockerSkill: "Docker (базовые знания)",
-                workExperience: '<i class="fa-solid fa-briefcase"></i> Опыт Работы',
-                freelanceTitle: "Фриланс-проекты (2023 – настоящее время)",
+                skills: '<i class="fa-solid fa-laptop-code"></i> Навыки и Компетенции', dockerSkill: "Docker (базовые знания)",
+                workExperience: '<i class="fa-solid fa-briefcase"></i> Опыт Работы', freelanceTitle: "Фриланс-проекты (2023 – настоящее время)",
                 freelanceText: "Разрабатывал Telegram и Discord ботов с использованием Python, реализуя функции хранения данных, интеграции с API и автоматизированные рабочие процессы. Создавал небольшие backend-приложения на Django и FastAPI с интеграцией баз данных PostgreSQL и MongoDB.",
-                projects: '<i class="fa-solid fa-diagram-project"></i> Проекты',
-                project1Title: "Discord Music Bot",
-                project2Title: "Roblox GPO Trade Bot",
+                projects: '<i class="fa-solid fa-diagram-project"></i> Проекты', project1Title: "Discord Music Bot", project2Title: "Roblox GPO Trade Bot",
                 project1Desc: "Разработан на Python с использованием yt-dlp и discord.py, поддерживает очереди, управление воспроизведением и интеграцию с YouTube.",
                 project2Desc: "Реализована система автодополнения, динамический UI и хранение сделок в базе данных.",
-                education: '<i class="fa-solid fa-graduation-cap"></i> Образование',
-                education1: "<strong>Одесский лицей №4</strong> (ожидаемое окончание: 2026)",
+                education: '<i class="fa-solid fa-graduation-cap"></i> Образование', education1: "<strong>Одесский лицей №4</strong> (ожидаемое окончание: 2026)",
                 education2: "<strong>Курс по программированию на Python</strong>, Одесский политехнический университет (2023)",
-                languages: '<i class="fa-solid fa-language"></i> Языки',
-                langRU: "Русский (Родной)",
-                langUK: "Украинский (Родной)",
-                langEN: "Английский (Свободный)",
-                contacts: '<i class="fa-solid fa-envelope"></i> Контакты',
-                phone: "Телефон",
-                footer: "&copy; 2025 Максим Мацюк. Все права защищены."
+                languages: '<i class="fa-solid fa-language"></i> Языки', langRU: "Русский (Родной)", langUK: "Украинский (Родной)", langEN: "Английский (Свободный)",
+                contacts: '<i class="fa-solid fa-envelope"></i> Контакты', phone: "Телефон", footer: "&copy; 2025 Максим Мацюк. Все права защищены."
             },
             uk: {
-                name: "Максим Мацюк",
-                jobTitle: "Backend-розробник",
-                downloadCV: "Завантажити CV",
+                name: "Максим Мацюк", jobTitle: "Backend-розробник", downloadCV: "Завантажити CV",
                 aboutMe: '<i class="fa-solid fa-user"></i> Про мене',
                 aboutMeText: "Вмотивований Backend-розробник з практичним досвідом у створенні backend-додатків, RESTful API та скриптів автоматизації. Впевнено володію Python, Django, PostgreSQL та MongoDB, маю додаткові навички в адмініструванні Linux та розробці ботів. Захоплений чистою архітектурою, оптимізацією баз даних та постійним навчанням.",
-                skills: '<i class="fa-solid fa-laptop-code"></i> Навички та Компетенції',
-                dockerSkill: "Docker (базові знання)",
-                workExperience: '<i class="fa-solid fa-briefcase"></i> Досвід Роботи',
-                freelanceTitle: "Фріланс-проекти (2023 – теперішній час)",
+                skills: '<i class="fa-solid fa-laptop-code"></i> Навички та Компетенції', dockerSkill: "Docker (базові знання)",
+                workExperience: '<i class="fa-solid fa-briefcase"></i> Досвід Роботи', freelanceTitle: "Фріланс-проекти (2023 – теперішній час)",
                 freelanceText: "Розробляв Telegram та Discord ботів з використанням Python, реалізуючи функції зберігання даних, інтеграції з API та автоматизовані робочі процеси. Створював невеликі backend-додатки на Django та FastAPI з інтеграцією баз даних PostgreSQL та MongoDB.",
-                projects: '<i class="fa-solid fa-diagram-project"></i> Проекти',
-                project1Title: "Discord Music Bot",
-                project2Title: "Roblox GPO Trade Bot",
+                projects: '<i class="fa-solid fa-diagram-project"></i> Проекти', project1Title: "Discord Music Bot", project2Title: "Roblox GPO Trade Bot",
                 project1Desc: "Розроблено на Python з використанням yt-dlp та discord.py, підтримує черги, керування відтворенням та інтеграцію з YouTube.",
                 project2Desc: "Реалізовано систему автодоповнення, динамічний UI та зберігання угод у базі даних.",
-                education: '<i class="fa-solid fa-graduation-cap"></i> Освіта',
-                education1: "<strong>Одеський ліцей №4</strong> (очікуване закінчення: 2026)",
+                education: '<i class="fa-solid fa-graduation-cap"></i> Освіта', education1: "<strong>Одеський ліцей №4</strong> (очікуване закінчення: 2026)",
                 education2: "<strong>Курс з програмування на Python</strong>, Одеський політехнічний університет (2023)",
-                languages: '<i class="fa-solid fa-language"></i> Мови',
-                langRU: "Російська (Рідна)",
-                langUK: "Українська (Рідна)",
-                langEN: "Англійська (Вільна)",
-                contacts: '<i class="fa-solid fa-envelope"></i> Контакти',
-                phone: "Телефон",
-                footer: "&copy; 2025 Максим Мацюк. Всі права захищені."
+                languages: '<i class="fa-solid fa-language"></i> Мови', langRU: "Російська (Рідна)", langUK: "Українська (Рідна)", langEN: "Англійська (Вільна)",
+                contacts: '<i class="fa-solid fa-envelope"></i> Контакти', phone: "Телефон", footer: "&copy; 2025 Максим Мацюк. Всі права захищені."
             },
             en: {
-                name: "Maksym Matsiuk",
-                jobTitle: "Backend Developer",
-                downloadCV: "Download CV",
+                name: "Maksym Matsiuk", jobTitle: "Backend Developer", downloadCV: "Download CV",
                 aboutMe: '<i class="fa-solid fa-user"></i> About Me',
                 aboutMeText: "Motivated Backend Developer with hands-on experience in building backend applications, RESTful APIs, and automation scripts. Proficient in Python, Django, PostgreSQL, and MongoDB, with additional skills in Linux administration and bot development. Passionate about clean architecture, database optimization, and continuous learning.",
-                skills: '<i class="fa-solid fa-laptop-code"></i> Skills & Competencies',
-                dockerSkill: "Docker (basic)",
-                workExperience: '<i class="fa-solid fa-briefcase"></i> Work Experience',
-                freelanceTitle: "Freelance Projects (2023 – Present)",
+                skills: '<i class="fa-solid fa-laptop-code"></i> Skills & Competencies', dockerSkill: "Docker (basic)",
+                workExperience: '<i class="fa-solid fa-briefcase"></i> Work Experience', freelanceTitle: "Freelance Projects (2023 – Present)",
                 freelanceText: "Developed Telegram and Discord bots using Python, implementing features such as data storage, API integration, and automated workflows. Created small backend applications with Django and FastAPI, including PostgreSQL and MongoDB database integration.",
-                projects: '<i class="fa-solid fa-diagram-project"></i> Projects',
-                project1Title: "Discord Music Bot",
-                project2Title: "Roblox GPO Trade Bot",
+                projects: '<i class="fa-solid fa-diagram-project"></i> Projects', project1Title: "Discord Music Bot", project2Title: "Roblox GPO Trade Bot",
                 project1Desc: "Developed with Python, yt-dlp, and discord.py, supporting queues, playback control, and YouTube integration.",
                 project2Desc: "Implemented an autocomplete system, dynamic UI, and database storage of trades.",
-                education: '<i class="fa-solid fa-graduation-cap"></i> Education',
-                education1: "<strong>Odessa Lyceum №4</strong> (expected graduation: 2026)",
+                education: '<i class="fa-solid fa-graduation-cap"></i> Education', education1: "<strong>Odessa Lyceum №4</strong> (expected graduation: 2026)",
                 education2: "<strong>Python Programming Course</strong>, Odessa Polytechnic University (2023)",
-                languages: '<i class="fa-solid fa-language"></i> Languages',
-                langRU: "Russian (Native)",
-                langUK: "Ukrainian (Native)",
-                langEN: "English (Fluent)",
-                contacts: '<i class="fa-solid fa-envelope"></i> Contact',
-                phone: "Phone",
-                footer: "&copy; 2025 Maksym Matsiuk. All rights reserved."
+                languages: '<i class="fa-solid fa-language"></i> Languages', langRU: "Russian (Native)", langUK: "Ukrainian (Native)", langEN: "English (Fluent)",
+                contacts: '<i class="fa-solid fa-envelope"></i> Contact', phone: "Phone", footer: "&copy; 2025 Maksym Matsiuk. All rights reserved."
             }
         };
 
